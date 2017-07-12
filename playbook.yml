@@ -31,6 +31,14 @@
        group: storm
 
    - file:
+       path: "/usr/share/apache-storm-{{ storm_version }}"
+       owner: "storm"
+       group: "storm"
+       mode: "u=rwX,g=rX,o=rX"
+       recurse: yes
+       state: directory
+
+   - file:
        src: "/usr/share/apache-storm-{{ storm_version }}/bin/storm"
        dest: /usr/bin/storm
        owner: storm
@@ -42,7 +50,7 @@
        owner: storm
        group: storm
        state: directory
-       mode: "u=rw,g=rw,o=r"
+       mode: "u=rwx,g=rwx,o=r"
 
    - template: src=Files/storm.yaml dest="/usr/share/apache-storm-{{ storm_version }}/conf/storm.yaml"
 
