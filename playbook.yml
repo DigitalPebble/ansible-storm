@@ -1,0 +1,54 @@
+---
+ 
+- hosts: storm
+  become: yes
+  vars: 
+    storm_version: 1.1.0
+
+  tasks:
+   - name: Install Zookeeperd
+     apt: pkg=zookeeperd state=installed update_cache=true
+
+   - name: Create Storm User
+     user: name=storm system=yes createhome=false group=storm
+
+   - unarchive: 
+       src: "http://www.mirrorservice.org/sites/ftp.apache.org/storm/apache-storm-{{ storm_version }}/apache-storm-{{ storm_version }}.tar.gz"
+       dest: /usr/share/
+       remote_src: True
+       owner: storm
+       group: storm
+
+   - file:
+       src: "/usr/share/apache-storm-{{ storm_version }}/bin/storm"
+       dest: /usr/bin/storm
+       owner: storm
+       group: storm
+       state: link
+
+   - file:
+       path: /var/log/storm
+       owner: storm
+       group: storm
+       state: directory
+       mode: "u=rw,g=rw,o=r"
+
+   - blockinfile:
+       path: "/usr/share/apache-storm-{{ storm_version }}/conf/storm.yaml"
+       block: |
+        storm.log.dir: "/var/log/storm"
+
+   - template: src=service.j2 dest="/etc/systemd/system/storm-{{ item }}.service"
+     with_items:
+        - nimbus
+        - supervisor
+        - ui
+
+   - systemd: state=started name=storm-{{ item }}.service daemon_reload=yes
+     with_items:
+        - nimbus
+        - supervisor
+        - ui
+
+
+
