@@ -1,13 +1,24 @@
 ---
  
-- hosts: storm
+- hosts: storm-slave
   become: yes
+  remote_user: root
   vars: 
     storm_version: 1.1.0
+    master_ip: 149.202.201.195
+
+  gather_facts: False
+  pre_tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      changed_when: False
+    - setup: # aka gather_facts
 
   tasks:
-   - name: Install Zookeeperd
-     apt: pkg=zookeeperd state=installed update_cache=true
+   - name: Install latest version of "openjdk-8-jdk"
+     apt: name=openjdk-8-jdk state=latest update_cache=true
+
+   - group: name=storm system=yes state=present
 
    - name: Create Storm User
      user: name=storm system=yes createhome=false group=storm
@@ -33,22 +44,35 @@
        state: directory
        mode: "u=rw,g=rw,o=r"
 
-   - blockinfile:
-       path: "/usr/share/apache-storm-{{ storm_version }}/conf/storm.yaml"
-       block: |
-        storm.log.dir: "/var/log/storm"
+   - template: src=Files/storm.yaml dest="/usr/share/apache-storm-{{ storm_version }}/conf/storm.yaml"
 
-   - template: src=service.j2 dest="/etc/systemd/system/storm-{{ item }}.service"
+   - template: src=Files/stormservicetemplate dest="/etc/systemd/system/storm-{{ item }}.service"
      with_items:
         - nimbus
+
+   - systemd: state=started name=storm-{{ item }}.service daemon_reload=yes
+     with_items:
+        - nimbus
+
+
+- hosts: storm-master
+  become: yes
+  remote_user: root
+  vars: 
+    storm_version: 1.1.0
+
+  tasks:
+   - name: Install Zookeeperd
+     apt: pkg=zookeeperd state=installed update_cache=true
+
+   - template: src=Files/stormservicetemplate dest="/etc/systemd/system/storm-{{ item }}.service"
+     with_items:
         - supervisor
         - ui
 
    - systemd: state=started name=storm-{{ item }}.service daemon_reload=yes
      with_items:
-        - nimbus
         - supervisor
         - ui
-
 
 

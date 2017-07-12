@@ -1,2 +1,10 @@
-[storm]
-localhost ansible_connection=local
+[storm-master]
+149.202.201.195
+
+[storm-slave]
+149.202.201.195
+149.202.206.234
+149.202.206.239
+149.202.206.240
+149.202.206.241
+

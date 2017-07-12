@@ -1,0 +1,4 @@
+storm.log.dir: "/var/log/storm"
+storm.zookeeper.servers: 
+  - "{{master_ip}}"
+nimbus.seeds: ["{{master_ip}}"]
