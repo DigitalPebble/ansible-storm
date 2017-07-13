@@ -34,7 +34,7 @@
        path: "/usr/share/apache-storm-{{ storm_version }}"
        owner: "storm"
        group: "storm"
-       mode: "u=rwX,g=rX,o=rX"
+       mode: "u=rwx,g=rwx,o=r"
        recurse: yes
        state: directory
 
@@ -51,16 +51,17 @@
        group: storm
        state: directory
        mode: "u=rwx,g=rwx,o=r"
+       recurse: yes
 
    - template: src=Files/storm.yaml dest="/usr/share/apache-storm-{{ storm_version }}/conf/storm.yaml"
 
    - template: src=Files/stormservicetemplate dest="/etc/systemd/system/storm-{{ item }}.service"
      with_items:
-        - nimbus
+        - supervisor
 
    - systemd: state=started name=storm-{{ item }}.service daemon_reload=yes
      with_items:
-        - nimbus
+        - supervisor
 
 
 - hosts: storm-master
@@ -75,12 +76,12 @@
 
    - template: src=Files/stormservicetemplate dest="/etc/systemd/system/storm-{{ item }}.service"
      with_items:
-        - supervisor
+        - nimbus
         - ui
 
    - systemd: state=started name=storm-{{ item }}.service daemon_reload=yes
      with_items:
-        - supervisor
+        - nimbus
         - ui
 
 

@@ -23,3 +23,12 @@
       name: maven
       state: installed
       update_cache: yes
+
+   - file:
+       path: /output
+       owner: stormcrawler
+       group: storm
+       state: directory
+       mode: "u=rwx,g=rwx,o=rwx"
+       recurse: yes
+
