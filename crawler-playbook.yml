@@ -1,0 +1,25 @@
+---
+
+- hosts: storm-master
+  become: yes
+  remote_user: root
+
+  tasks:
+
+   - name: Create StormCrawler User
+     user: name=stormcrawler createhome=true group=storm
+
+   - apt: 
+      name: curl
+      state: installed
+      update_cache: yes
+
+   - apt: 
+      name: git
+      state: installed
+      update_cache: yes
+
+   - apt: 
+      name: maven
+      state: installed
+      update_cache: yes
