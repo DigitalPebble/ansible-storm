@@ -11,6 +11,8 @@
     es_api_port: 9200
     es_version: "5.3.1"
     es_heap_size: 10g
+    es_plugins:
+    - plugin: repository-s3
 
   pre_tasks:
    - file:
