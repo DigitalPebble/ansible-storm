@@ -24,9 +24,16 @@
       state: installed
       update_cache: yes
 
-   - file:
+
+- hosts: storm-slave
+  become: yes
+  remote_user: root
+
+  tasks:
+
+  - file:
        path: /output
-       owner: stormcrawler
+       owner: storm
        group: storm
        state: directory
        mode: "u=rwx,g=rwx,o=rwx"
