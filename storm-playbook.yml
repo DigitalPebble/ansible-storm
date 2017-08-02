@@ -4,7 +4,7 @@
   become: yes
   remote_user: root
   vars: 
-    storm_version: 1.1.0
+    storm_version: 1.1.1
     master_ip: 149.202.201.195
 
   gather_facts: False
