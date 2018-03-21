@@ -1,11 +1,11 @@
 ---
  
 - hosts: storm-slave
-  become: yes
+  become: no
   remote_user: root
   vars: 
-    storm_version: 1.1.1
-    master_ip: 149.202.201.195
+    storm_version: 1.2.1
+    master_ip: localhost
 
   gather_facts: False
   pre_tasks:
@@ -53,6 +53,14 @@
        mode: "u=rwx,g=rwx,o=r"
        recurse: yes
 
+   - file:
+       path: /var/log/storm/workers-artifacts/
+       owner: storm
+       group: storm
+       state: directory
+       mode: "u=rwx,g=rwx,o=rwx"
+       recurse: yes
+
    - template: src=Files/storm.yaml dest="/usr/share/apache-storm-{{ storm_version }}/conf/storm.yaml"
 
    - template: src=Files/stormservicetemplate dest="/etc/systemd/system/storm-{{ item }}.service"
@@ -65,10 +73,10 @@
 
 
 - hosts: storm-master
-  become: yes
+  become: no
   remote_user: root
   vars: 
-    storm_version: 1.1.0
+    storm_version: 1.2.1
 
   tasks:
    - name: Install Zookeeperd
