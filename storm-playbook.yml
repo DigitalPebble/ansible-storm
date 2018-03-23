@@ -15,8 +15,13 @@
     - setup: # aka gather_facts
 
   tasks:
-   - name: Install latest version of "openjdk-8-jdk"
-     apt: name=openjdk-8-jdk state=latest update_cache=true
+   - name: add repo for java 8
+     apt_repository: repo='ppa:webupd8team/java' state=present
+
+   - debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+   - name: install java 8
+     apt: name=oracle-java8-installer state=latest update-cache=yes force=yes
 
    - group: name=storm system=yes state=present
 
