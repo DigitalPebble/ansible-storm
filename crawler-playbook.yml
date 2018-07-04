@@ -1,41 +1,30 @@
 ---
 
 - hosts: storm-master
-  become: yes
-  remote_user: root
+
+  vars_prompt:
+   - name: "user_password"    
+     prompt: "Enter a password for the stormcrawler user"    
+     private: yes    
+     encrypt: "md5_crypt" #need to have python-passlib installed in local machine before we can use it    
+     confirm: yes    
+     salt_size: 7
 
   tasks:
-
    - name: Create StormCrawler User
-     user: name=stormcrawler createhome=true group=storm
+     user: name=stormcrawler createhome=true group=storm password="{{user_password}}"
 
    - apt: 
       name: curl
-      state: installed
+      state: present
       update_cache: yes
 
    - apt: 
       name: git
-      state: installed
+      state: present
       update_cache: yes
 
    - apt: 
       name: maven
-      state: installed
+      state: present
       update_cache: yes
-
-
-- hosts: storm-slave
-  become: yes
-  remote_user: root
-
-  tasks:
-
-  - file:
-       path: /output
-       owner: storm
-       group: storm
-       state: directory
-       mode: "u=rwx,g=rwx,o=rwx"
-       recurse: yes
-
