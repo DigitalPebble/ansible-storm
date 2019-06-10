@@ -1,6 +1,7 @@
 ---
 
 - hosts: storm-master
+  become: yes
 
   vars_prompt:
    - name: "user_password"    
