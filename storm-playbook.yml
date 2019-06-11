@@ -35,7 +35,7 @@
        force: yes
 
    - unarchive:
-       src: /tmp/share/apache-storm-{{ storm_version }}.tar.gz
+       src: /tmp/apache-storm-{{ storm_version }}.tar.gz
        dest: /usr/share/
        owner: storm
        group: storm
