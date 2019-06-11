@@ -26,10 +26,17 @@
    - name: Create Storm User
      user: name=storm system=yes createhome=false group=storm
 
-   - unarchive: 
-       src: "http://www.mirrorservice.org/sites/ftp.apache.org/storm/apache-storm-{{ storm_version }}/apache-storm-{{ storm_version }}.tar.gz"
+   - get_url: 
+       url: "http://www.mirrorservice.org/sites/ftp.apache.org/storm/apache-storm-{{ storm_version }}/apache-storm-{{ storm_version }}.tar.gz"
+       dest: /tmp/
+       owner: storm
+       group: storm
+       timeout: 600
+       force: yes
+
+   - unarchive:
+       src: /tmp/share/apache-storm-{{ storm_version }}.tar.gz
        dest: /usr/share/
-       remote_src: True
        owner: storm
        group: storm
 
