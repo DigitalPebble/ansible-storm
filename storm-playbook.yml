@@ -39,6 +39,7 @@
        dest: /usr/share/
        owner: storm
        group: storm
+       remote_src: yes
 
    - file:
        path: "/usr/share/apache-storm-{{ storm_version }}"
