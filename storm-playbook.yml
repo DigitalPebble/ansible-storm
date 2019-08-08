@@ -106,7 +106,14 @@
 
    - unarchive:
        src: /tmp/apache-zookeeper-{{ zk_version }}-bin.tar.gz
-       dest: /opt/zookeeper/
+       dest: /tmp
+       owner: zookeeper
+       group: zookeeper
+       remote_src: yes
+
+   - copy:
+       src: "/tmp/apache-zookeeper-{{ zk_version }}-bin/"
+       dest: /opt/zookeeper
        owner: zookeeper
        group: zookeeper
        remote_src: yes
