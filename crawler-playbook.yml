@@ -13,7 +13,11 @@
 
   tasks:
    - name: Create StormCrawler User
-     user: name=stormcrawler createhome=true group=storm password="{{user_password}}"
+     user:
+      name: stormcrawler
+      shell: /bin/bash
+      groups: storm,sudo
+      password: "{{ user_password }}"
 
    - apt: 
       name: curl
