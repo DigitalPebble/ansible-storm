@@ -1,8 +1,11 @@
 ---
  
 - hosts: storm-slave
+  become: yes
+
   vars: 
-    storm_version: 1.2.2
+    storm_version: 1.2.3
+    # TODO get IP from inventory
     master_ip: localhost
 
   gather_facts: False
@@ -13,25 +16,31 @@
     - setup: # aka gather_facts
 
   tasks:
-   - name: add repo for java 8
-     apt_repository: repo='ppa:webupd8team/java' state=present
-
-   - debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
-
-   - name: install java 8
-     apt: name=oracle-java8-installer state=latest update-cache=yes force=yes
+   - apt:
+      name: openjdk-8-jdk
+      state: present
+      update_cache: yes
+      force: yes
 
    - group: name=storm system=yes state=present
 
    - name: Create Storm User
      user: name=storm system=yes createhome=false group=storm
 
-   - unarchive: 
-       src: "http://www.mirrorservice.org/sites/ftp.apache.org/storm/apache-storm-{{ storm_version }}/apache-storm-{{ storm_version }}.tar.gz"
-       dest: /usr/share/
-       remote_src: True
+   - get_url: 
+       url: "http://www.mirrorservice.org/sites/ftp.apache.org/storm/apache-storm-{{ storm_version }}/apache-storm-{{ storm_version }}.tar.gz"
+       dest: /tmp/
        owner: storm
        group: storm
+       timeout: 600
+       force: yes
+
+   - unarchive:
+       src: /tmp/apache-storm-{{ storm_version }}.tar.gz
+       dest: /usr/share/
+       owner: storm
+       group: storm
+       remote_src: yes
 
    - file:
        path: "/usr/share/apache-storm-{{ storm_version }}"
@@ -76,8 +85,10 @@
 
 
 - hosts: storm-master
+  become: yes
+
   vars: 
-    storm_version: 1.2.2
+    storm_version: 1.2.3
 
   tasks:
    - name: Install Zookeeperd

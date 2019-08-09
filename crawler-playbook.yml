@@ -1,6 +1,7 @@
 ---
 
 - hosts: storm-master
+  become: yes
 
   vars_prompt:
    - name: "user_password"    
@@ -12,7 +13,11 @@
 
   tasks:
    - name: Create StormCrawler User
-     user: name=stormcrawler createhome=true group=storm password="{{user_password}}" shell=/bin/bash
+     user:
+      name: stormcrawler
+      shell: /bin/bash
+      groups: storm,sudo
+      password: "{{ user_password }}"
 
    - apt: 
       name: curl
