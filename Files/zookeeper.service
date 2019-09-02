@@ -8,10 +8,10 @@ After=network.target
 Type=simple
 User=zookeeper
 Group=zookeeper
-ExecStart=/opt/zookeeper/bin/zkServer.sh start /opt/zookeeper/conf/zoo.conf
-ExecStop=/opt/zookeeper/bin/zkServer.sh stop /opt/zookeeper/conf/zoo.conf
-ExecReload=/opt/zookeeper/bin/zkServer.sh restart /opt/zookeeper/conf/zoo.conf
-WorkingDirectory=/var/lib/zookeeper
+WorkingDirectory=/opt/zookeeper
+ExecStart=/opt/zookeeper/bin/zkServer.sh start /opt/zookeeper/conf/zoo.cfg
+ExecStop=/opt/zookeeper/bin/zkServer.sh stop /opt/zookeeper/conf/zoo.cfg
+ExecReload=/opt/zookeeper/bin/zkServer.sh restart /opt/zookeeper/conf/zoo.cfg
 
 [Install]
 WantedBy=default.target
