@@ -1,6 +1,6 @@
 [storm-master]
-51.91.25.202
+localhost ansible_become=true ansible_user=julien
 
 [storm-slave]
-51.91.25.202
+localhost ansible_become=true ansible_user=julien
 
