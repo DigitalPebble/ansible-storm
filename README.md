@@ -1,12 +1,9 @@
 # ansible-storm
-Configuration for deploying a Storm cluster with Ansible
+Ansible playbook for deploying a Storm cluster
 
+Edit the _hosts_ file then run
+
+```
 ansible-playbook -i hosts storm-playbook.yml -u user
-
 ```
-[storm-master]
-xxx.xxx.xxx.xxx
 
-[storm-slave]
-xxx.xxx.xxx.xxx
-```
