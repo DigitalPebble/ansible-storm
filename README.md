@@ -1,5 +1,5 @@
 # ansible-storm
-Ansible playbook for deploying a Storm cluster
+Ansible playbook for deploying an [Apache Storm](http://storm.apache.org/) cluster
 
 Edit the _hosts_ file then run
 
