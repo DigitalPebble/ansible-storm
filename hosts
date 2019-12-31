@@ -1,6 +1,6 @@
 [storm-master]
-localhost ansible_become=true ansible_user=julien
+localhost
 
 [storm-slave]
-localhost ansible_become=true ansible_user=julien
+localhost
 
