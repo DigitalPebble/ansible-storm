@@ -17,3 +17,9 @@ This installs Zookeeper and Storm running as services. After the command above, 
 
 
 There is also a crawler-playbook which creates a _stormcrawler_ user on the master node and installs curl, git and maven on the master node. This is useful for checking out the stormcrawler code and run the topologies under it.
+
+
+Video tutorial
+---------------------
+
+[![Video tutorial](https://i9.ytimg.com/vi/Wsau0wu7T74/mqdefault.jpg?time=1578481771248&sqp=CNzu1vAF&rs=AOn4CLC2I62uPgfSVIgzuB2BcADdVWtPWQ)](https://youtu.be/Wsau0wu7T74)
