@@ -5,10 +5,10 @@
 
   vars: 
     storm_version: 1.2.3
-    # TODO get IP from inventory
-    master_ip: localhost
+    # get IP of master from hostvars
+    master_ip: "{{ hostvars[groups['storm-master'][0]]['ansible_hostname'] }}"
 
-  gather_facts: False
+  gather_facts: yes
   pre_tasks:
     - name: Install python for Ansible
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
@@ -16,6 +16,8 @@
     - setup: # aka gather_facts
 
   tasks:
+   - debug: var=master_ip
+
    - apt:
       name: openjdk-8-jdk
       state: present
@@ -27,7 +29,8 @@
    - name: Create Storm User
      user: name=storm system=yes createhome=false group=storm
 
-   - get_url: 
+   - name: Download Apache Storm {{ storm_version }}
+     get_url: 
        url: "http://www.mirrorservice.org/sites/ftp.apache.org/storm/apache-storm-{{ storm_version }}/apache-storm-{{ storm_version }}.tar.gz"
        dest: /tmp/
        owner: storm
@@ -35,7 +38,8 @@
        timeout: 600
        force: yes
 
-   - unarchive:
+   - name: Unarchive Apache Storm
+     unarchive:
        src: /tmp/apache-storm-{{ storm_version }}.tar.gz
        dest: /usr/share/
        owner: storm
