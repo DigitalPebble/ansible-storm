@@ -1,12 +1,12 @@
 ---
  
-- hosts: storm-slave
+- hosts: storm_slave
   become: yes
 
   vars: 
     storm_version: 1.2.3
     # get IP of master from hostvars
-    master_ip: "{{ hostvars[groups['storm-master'][0]]['ansible_fqdn'] }}"
+    master_ip: "{{ hostvars[groups['storm_master'][0]]['ansible_fqdn'] }}"
 
   gather_facts: yes
   pre_tasks:
@@ -88,7 +88,7 @@
         - supervisor
 
 
-- hosts: storm-master
+- hosts: storm_master
   become: yes
 
   vars: 

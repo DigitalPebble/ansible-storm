@@ -1,6 +1,6 @@
-[storm-master]
+[storm_master]
 localhost
 
-[storm-slave]
+[storm_slave]
 localhost
 

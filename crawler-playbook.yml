@@ -1,6 +1,6 @@
 ---
 
-- hosts: storm-master
+- hosts: storm_master
   become: yes
 
   vars_prompt:
