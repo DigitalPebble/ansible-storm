@@ -22,4 +22,4 @@ There is also a crawler-playbook which creates a _stormcrawler_ user on the mast
 Video tutorial
 ---------------------
 
-[![Video tutorial](https://i9.ytimg.com/vi/Wsau0wu7T74/mqdefault.jpg?time=1578481771248&sqp=CNzu1vAF&rs=AOn4CLC2I62uPgfSVIgzuB2BcADdVWtPWQ)](https://youtu.be/Wsau0wu7T74)
+[![Video tutorial](https://i.ytimg.com/vi/Wsau0wu7T74/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLARqbyJ04B3jJloroOebIVQxBtvWg)](https://youtu.be/Wsau0wu7T74)
