@@ -102,7 +102,7 @@
      user: name=zookeeper system=yes createhome=false group=zookeeper
 
    - get_url: 
-       url: "https://archive.apache.org/dist/zookeeper/current/apache-zookeeper-{{ zk_version }}-bin.tar.gz"
+       url: "https://archive.apache.org/dist/zookeeper/zookeeper-{{ zk_version }}/apache-zookeeper-{{ zk_version }}-bin.tar.gz"
        dest: /tmp/
        owner: zookeeper
        group: zookeeper
