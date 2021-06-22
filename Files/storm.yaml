@@ -3,3 +3,4 @@ storm.zookeeper.servers:
   - "{{master_ip}}"
 nimbus.seeds: ["{{master_ip}}"]
 worker.heap.memory.mb: 5000
+worker.childopts: "-Xmx%HEAP-MEM%m" 
