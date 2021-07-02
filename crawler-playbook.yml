@@ -19,17 +19,11 @@
       groups: storm,sudo
       password: "{{ user_password }}"
 
-   - apt: 
-      name: curl
-      state: present
-      update_cache: yes
-
-   - apt: 
-      name: git
-      state: present
-      update_cache: yes
-
-   - apt: 
-      name: maven
-      state: present
-      update_cache: yes
+   - name: Install packages
+     apt:
+       pkg:
+         - curl
+         - git
+         - maven
+       state: present
+       update_cache: true

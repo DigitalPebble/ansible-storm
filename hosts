@@ -1,6 +1,6 @@
 [storm_master]
 localhost
 
-[storm_slave]
+[storm_worker]
 localhost
 
