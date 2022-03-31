@@ -4,7 +4,7 @@
   become: yes
 
   vars: 
-    storm_version: 2.3.0
+    storm_version: 2.4.0
     # get IP of master from hostvars
     master_ip: "{{ hostvars[groups['storm_master'][0]]['ansible_fqdn'] }}"
 
@@ -91,7 +91,7 @@
   become: yes
 
   vars: 
-    storm_version: 2.3.0
+    storm_version: 2.4.0
     zk_version: 3.7.0
 
   tasks:
@@ -156,7 +156,7 @@
   become: yes
 
   vars: 
-    storm_version: 2.3.0
+    storm_version: 2.4.0
 
   tasks:
    - template: src=Files/stormservicetemplate dest="/etc/systemd/system/storm-{{ item }}.service"
