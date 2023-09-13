@@ -1,6 +1,5 @@
 [storm_master]
-172.60.1.193
+localhost
 
 [storm_worker]
-172.60.1.107
-
+localhost
